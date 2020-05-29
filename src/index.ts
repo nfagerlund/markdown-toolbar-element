@@ -692,3 +692,9 @@ function applyStyle(button: Element, stylesToApply: {}) {
 }
 
 export default MarkdownToolbarElement
+
+export {
+  styleSelectedText,
+
+  keydown, onToolbarFocus, focusKeydown, shortcut, applyStyle
+}
