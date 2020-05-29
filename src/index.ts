@@ -511,7 +511,7 @@ function blockStyle(textarea: HTMLTextAreaElement, arg: StyleArgs): SelectionRan
   let newlinesToAppend
   let newlinesToPrepend
 
-  const {prefix, suffix, blockPrefix, blockSuffix, replaceNext, prefixSpace, scanFor, surroundWithNewlines} = arg
+  const {prefix, suffix, blockPrefix, blockSuffix, replaceNext, replacePrev, prefixSpace, scanFor, surroundWithNewlines} = arg
   const originalSelectionStart = textarea.selectionStart
   const originalSelectionEnd = textarea.selectionEnd
 
@@ -529,6 +529,7 @@ function blockStyle(textarea: HTMLTextAreaElement, arg: StyleArgs): SelectionRan
   let selectionStart = textarea.selectionStart
   let selectionEnd = textarea.selectionEnd
   const hasReplaceNext = replaceNext.length > 0 && suffixToUse.indexOf(replaceNext) > -1 && selectedText.length > 0
+  const hasReplacePrev = replacePrev.length > 0 && prefixToUse.indexOf(replacePrev) > -1 && selectedText.length > 0
   if (surroundWithNewlines) {
     const ref = newlinesToSurroundSelectedText(textarea)
     newlinesToAppend = ref.newlinesToAppend
@@ -548,7 +549,7 @@ function blockStyle(textarea: HTMLTextAreaElement, arg: StyleArgs): SelectionRan
       selectionEnd = selectionStart + replacementText.length
     }
     return {text: replacementText, selectionStart, selectionEnd}
-  } else if (!hasReplaceNext) {
+  } else if (!hasReplaceNext && !hasReplacePrev) {
     let replacementText = prefixToUse + selectedText + suffixToUse
     selectionStart = originalSelectionStart + prefixToUse.length
     selectionEnd = originalSelectionEnd + prefixToUse.length
@@ -562,7 +563,11 @@ function blockStyle(textarea: HTMLTextAreaElement, arg: StyleArgs): SelectionRan
     }
     return {text: replacementText, selectionStart, selectionEnd}
   } else if (scanFor.length > 0 && selectedText.match(scanFor)) {
-    suffixToUse = suffixToUse.replace(replaceNext, selectedText)
+    if (hasReplaceNext) {
+      suffixToUse = suffixToUse.replace(replaceNext, selectedText)
+    } else if (hasReplacePrev) {
+      prefixToUse = prefixToUse.replace(replacePrev, selectedText)
+    }
     const replacementText = prefixToUse + suffixToUse
     selectionStart = selectionEnd = selectionStart + prefixToUse.length
     return {text: replacementText, selectionStart, selectionEnd}
@@ -645,6 +650,7 @@ interface StyleArgs {
   blockSuffix: string
   multiline: boolean
   replaceNext: string
+  replacePrev: string
   prefixSpace: boolean
   scanFor: string
   surroundWithNewlines: boolean
@@ -675,6 +681,7 @@ function applyStyle(button: Element, stylesToApply: {}) {
     blockSuffix: '',
     multiline: false,
     replaceNext: '',
+    replacePrev: '',
     prefixSpace: false,
     scanFor: '',
     surroundWithNewlines: false,
