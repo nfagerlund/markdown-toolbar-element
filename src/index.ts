@@ -511,7 +511,17 @@ function blockStyle(textarea: HTMLTextAreaElement, arg: StyleArgs): SelectionRan
   let newlinesToAppend
   let newlinesToPrepend
 
-  const {prefix, suffix, blockPrefix, blockSuffix, replaceNext, replacePrev, prefixSpace, scanFor, surroundWithNewlines} = arg
+  const {
+    prefix,
+    suffix,
+    blockPrefix,
+    blockSuffix,
+    replaceNext,
+    replacePrev,
+    prefixSpace,
+    scanFor,
+    surroundWithNewlines
+  } = arg
   const originalSelectionStart = textarea.selectionStart
   const originalSelectionEnd = textarea.selectionEnd
 
