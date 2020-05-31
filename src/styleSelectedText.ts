@@ -1,11 +1,29 @@
 import {
   StyleArgs,
   SelectionRange,
-  expandSelectedText,
   newlinesToSurroundSelectedText,
   wordSelectionEnd,
+  wordSelectionStart,
   numberedLines
 } from './index'
+
+function expandSelectedText(textarea: HTMLTextAreaElement, prefixToUse: string, suffixToUse: string, multiline = false): string {
+    if (textarea.selectionStart === textarea.selectionEnd) {
+      textarea.selectionStart = wordSelectionStart(textarea.value, textarea.selectionStart);
+      textarea.selectionEnd = wordSelectionEnd(textarea.value, textarea.selectionEnd, multiline);
+    }
+    else {
+      const expandedSelectionStart = textarea.selectionStart - prefixToUse.length;
+      const expandedSelectionEnd = textarea.selectionEnd + suffixToUse.length;
+      const beginsWithPrefix = textarea.value.slice(expandedSelectionStart, textarea.selectionStart) === prefixToUse;
+      const endsWithSuffix = textarea.value.slice(textarea.selectionEnd, expandedSelectionEnd) === suffixToUse;
+      if (beginsWithPrefix && endsWithSuffix) {
+        textarea.selectionStart = expandedSelectionStart;
+        textarea.selectionEnd = expandedSelectionEnd;
+      }
+    }
+    return textarea.value.slice(textarea.selectionStart, textarea.selectionEnd);
+  }
 
 let canInsertText: boolean | null = null
 

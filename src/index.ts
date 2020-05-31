@@ -366,7 +366,7 @@ function repeat(string: string, n: number): string {
   return Array(n + 1).join(string)
 }
 
-function wordSelectionStart(text: string, i: number): number {
+export function wordSelectionStart(text: string, i: number): number {
   let index = i
   while (text[index] && text[index - 1] != null && !text[index - 1].match(/\s/)) {
     index--
@@ -381,28 +381,6 @@ export function wordSelectionEnd(text: string, i: number, multiline: boolean): n
     index++
   }
   return index
-}
-
-export function expandSelectedText(
-  textarea: HTMLTextAreaElement,
-  prefixToUse: string,
-  suffixToUse: string,
-  multiline = false
-): string {
-  if (textarea.selectionStart === textarea.selectionEnd) {
-    textarea.selectionStart = wordSelectionStart(textarea.value, textarea.selectionStart)
-    textarea.selectionEnd = wordSelectionEnd(textarea.value, textarea.selectionEnd, multiline)
-  } else {
-    const expandedSelectionStart = textarea.selectionStart - prefixToUse.length
-    const expandedSelectionEnd = textarea.selectionEnd + suffixToUse.length
-    const beginsWithPrefix = textarea.value.slice(expandedSelectionStart, textarea.selectionStart) === prefixToUse
-    const endsWithSuffix = textarea.value.slice(textarea.selectionEnd, expandedSelectionEnd) === suffixToUse
-    if (beginsWithPrefix && endsWithSuffix) {
-      textarea.selectionStart = expandedSelectionStart
-      textarea.selectionEnd = expandedSelectionEnd
-    }
-  }
-  return textarea.value.slice(textarea.selectionStart, textarea.selectionEnd)
 }
 
 interface Newlines {
