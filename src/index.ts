@@ -1,4 +1,4 @@
-import { styleSelectedText } from "./styleSelectedText"
+import {styleSelectedText} from './styleSelectedText'
 
 declare global {
   interface Window {

@@ -1,3 +1,3 @@
 export function isMultipleLines(string: string): boolean {
-  return string.trim().split('\n').length > 1;
+  return string.trim().split('\n').length > 1
 }
