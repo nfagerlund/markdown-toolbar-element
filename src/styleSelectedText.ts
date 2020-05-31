@@ -1,11 +1,35 @@
 import {
   StyleArgs,
   SelectionRange,
-  newlinesToSurroundSelectedText,
   wordSelectionEnd,
   wordSelectionStart,
+  Newlines, repeat,
   numberedLines
 } from './index'
+
+function newlinesToSurroundSelectedText(textarea: HTMLTextAreaElement): Newlines {
+    const beforeSelection = textarea.value.slice(0, textarea.selectionStart);
+    const afterSelection = textarea.value.slice(textarea.selectionEnd);
+    const breaksBefore = beforeSelection.match(/\n*$/);
+    const breaksAfter = afterSelection.match(/^\n*/);
+    const newlinesBeforeSelection = breaksBefore ? breaksBefore[0].length : 0;
+    const newlinesAfterSelection = breaksAfter ? breaksAfter[0].length : 0;
+    let newlinesToAppend;
+    let newlinesToPrepend;
+    if (beforeSelection.match(/\S/) && newlinesBeforeSelection < 2) {
+      newlinesToAppend = repeat('\n', 2 - newlinesBeforeSelection);
+    }
+    if (afterSelection.match(/\S/) && newlinesAfterSelection < 2) {
+      newlinesToPrepend = repeat('\n', 2 - newlinesAfterSelection);
+    }
+    if (newlinesToAppend == null) {
+      newlinesToAppend = '';
+    }
+    if (newlinesToPrepend == null) {
+      newlinesToPrepend = '';
+    }
+    return { newlinesToAppend, newlinesToPrepend };
+  }
 
 function expandSelectedText(textarea: HTMLTextAreaElement, prefixToUse: string, suffixToUse: string, multiline = false): string {
     if (textarea.selectionStart === textarea.selectionEnd) {
