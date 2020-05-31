@@ -1,7 +1,12 @@
 import {
   StyleArgs,
-  SelectionRange,
   repeat} from './index'
+
+interface SelectionRange {
+    text: string
+    selectionStart: number | undefined
+    selectionEnd: number | undefined
+  }
 
 function wordSelectionStart(text: string, i: number): number {
     let index = i;

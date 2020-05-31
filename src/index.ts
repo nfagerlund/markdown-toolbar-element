@@ -366,12 +366,6 @@ export function repeat(string: string, n: number): string {
   return Array(n + 1).join(string)
 }
 
-export interface SelectionRange {
-  text: string
-  selectionStart: number | undefined
-  selectionEnd: number | undefined
-}
-
 export interface StyleArgs {
   prefix: string
   suffix: string
