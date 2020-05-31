@@ -284,7 +284,7 @@ function blockStyle(textarea: HTMLTextAreaElement, arg: StyleArgs): SelectionRan
   }
 }
 
-export function styleSelectedText(textarea: HTMLTextAreaElement, styleArgs: StyleArgs) {
+export default function styleSelectedText(textarea: HTMLTextAreaElement, styleArgs: StyleArgs) {
   const text = textarea.value.slice(textarea.selectionStart, textarea.selectionEnd)
   let result
   if (styleArgs.orderedList) {
