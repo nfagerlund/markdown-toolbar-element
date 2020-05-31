@@ -409,18 +409,6 @@ export interface StyleArgs {
   trimFirst: boolean
 }
 
-export function numberedLines(lines: string[]) {
-  let i
-  let len
-  let index
-  const results = []
-  for (index = i = 0, len = lines.length; i < len; index = ++i) {
-    const line = lines[index]
-    results.push(`${index + 1}. ${line}`)
-  }
-  return results
-}
-
 function applyStyle(button: Element, stylesToApply: {}) {
   const toolbar = button.closest('markdown-toolbar')
   if (!(toolbar instanceof MarkdownToolbarElement)) return

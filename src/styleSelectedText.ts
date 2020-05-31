@@ -3,9 +3,19 @@ import {
   SelectionRange,
   wordSelectionEnd,
   wordSelectionStart,
-  Newlines, repeat,
-  numberedLines
-} from './index'
+  Newlines, repeat} from './index'
+
+function numberedLines(lines: string[]) {
+    let i;
+    let len;
+    let index;
+    const results = [];
+    for (index = i = 0, len = lines.length; i < len; index = ++i) {
+      const line = lines[index];
+      results.push(`${index + 1}. ${line}`);
+    }
+    return results;
+  }
 
 function newlinesToSurroundSelectedText(textarea: HTMLTextAreaElement): Newlines {
     const beforeSelection = textarea.value.slice(0, textarea.selectionStart);
