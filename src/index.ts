@@ -366,21 +366,6 @@ export function repeat(string: string, n: number): string {
   return Array(n + 1).join(string)
 }
 
-export interface StyleArgs {
-  prefix: string
-  suffix: string
-  blockPrefix: string
-  blockSuffix: string
-  multiline: boolean
-  replaceNext: string
-  replacePrev: string
-  prefixSpace: boolean
-  scanFor: string
-  surroundWithNewlines: boolean
-  orderedList: boolean
-  trimFirst: boolean
-}
-
 function applyStyle(button: Element, stylesToApply: {}) {
   const toolbar = button.closest('markdown-toolbar')
   if (!(toolbar instanceof MarkdownToolbarElement)) return

@@ -1,6 +1,19 @@
-import {
-  StyleArgs,
-  repeat} from './index'
+import {repeat} from './index'
+
+interface StyleArgs {
+    prefix: string
+    suffix: string
+    blockPrefix: string
+    blockSuffix: string
+    multiline: boolean
+    replaceNext: string
+    replacePrev: string
+    prefixSpace: boolean
+    scanFor: string
+    surroundWithNewlines: boolean
+    orderedList: boolean
+    trimFirst: boolean
+  }
 
 interface SelectionRange {
     text: string
