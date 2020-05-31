@@ -366,23 +366,6 @@ export function repeat(string: string, n: number): string {
   return Array(n + 1).join(string)
 }
 
-export function wordSelectionStart(text: string, i: number): number {
-  let index = i
-  while (text[index] && text[index - 1] != null && !text[index - 1].match(/\s/)) {
-    index--
-  }
-  return index
-}
-
-export function wordSelectionEnd(text: string, i: number, multiline: boolean): number {
-  let index = i
-  const breakpoint = multiline ? /\n/ : /\s/
-  while (text[index] && !text[index].match(breakpoint)) {
-    index++
-  }
-  return index
-}
-
 export interface Newlines {
   newlinesToAppend: string
   newlinesToPrepend: string

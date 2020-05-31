@@ -1,9 +1,24 @@
 import {
   StyleArgs,
   SelectionRange,
-  wordSelectionEnd,
-  wordSelectionStart,
   Newlines, repeat} from './index'
+
+function wordSelectionStart(text: string, i: number): number {
+    let index = i;
+    while (text[index] && text[index - 1] != null && !text[index - 1].match(/\s/)) {
+      index--;
+    }
+    return index;
+  }
+
+function wordSelectionEnd(text: string, i: number, multiline: boolean): number {
+    let index = i;
+    const breakpoint = multiline ? /\n/ : /\s/;
+    while (text[index] && !text[index].match(breakpoint)) {
+      index++;
+    }
+    return index;
+  }
 
 function numberedLines(lines: string[]) {
     let i;
