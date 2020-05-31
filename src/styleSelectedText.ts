@@ -1,5 +1,3 @@
-import {repeat} from './index'
-
 interface StyleArgs {
     prefix: string
     suffix: string
@@ -19,6 +17,10 @@ interface SelectionRange {
     text: string
     selectionStart: number | undefined
     selectionEnd: number | undefined
+  }
+
+function repeat(string: string, n: number): string {
+    return Array(n + 1).join(string);
   }
 
 function wordSelectionStart(text: string, i: number): number {
