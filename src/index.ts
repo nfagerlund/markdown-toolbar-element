@@ -366,11 +366,6 @@ export function repeat(string: string, n: number): string {
   return Array(n + 1).join(string)
 }
 
-export interface Newlines {
-  newlinesToAppend: string
-  newlinesToPrepend: string
-}
-
 export interface SelectionRange {
   text: string
   selectionStart: number | undefined

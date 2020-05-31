@@ -1,7 +1,7 @@
 import {
   StyleArgs,
   SelectionRange,
-  Newlines, repeat} from './index'
+  repeat} from './index'
 
 function wordSelectionStart(text: string, i: number): number {
     let index = i;
@@ -30,6 +30,11 @@ function numberedLines(lines: string[]) {
       results.push(`${index + 1}. ${line}`);
     }
     return results;
+  }
+
+interface Newlines {
+    newlinesToAppend: string
+    newlinesToPrepend: string
   }
 
 function newlinesToSurroundSelectedText(textarea: HTMLTextAreaElement): Newlines {
